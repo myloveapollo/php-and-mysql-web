@@ -1,25 +1,49 @@
-<form action="phptest.php" method="post">
+<form action="processorder.php" method="post">
 	<table border="0">
 		<tr>
-			<td width="150">Item</td>
-			<td width="15">Quantity</td>
+			<td bgcolor = "#CCC" width="150">Item</td>
+			<td bgcolor = "#CCC" width="250">Quantity</td>
 		</tr>
 		<tr>
 			<td>Tires</td>
-			<td align="center">
-				<input type="text" name="tirepty" size="3" maxlength="3">
+			<td align="left">
+				<input type="text" name="tireqty" size="3" maxlength="3">
 			</td>
 		</tr>
 		<tr>
 			<td>Oil</td>
-			<td align="center">
-				<input type="text" name="Oil" size="3" maxlength="3">
+			<td align="left">
+				<input type="text" name="oilqty" size="3" maxlength="3">
 			</td>
 		</tr>
 		<tr>
-			<td align="center">
-				<input type="submit" value="sumbit order">
+			<td>Spark Plugs</td>
+			<td align="left">
+				<input type="text" name="sparkqty" size="3" maxlength="3">
 			</td>
 		</tr>
+		<tr>
+			<td>address</td>
+			<td align="left">
+				<input type="text" name="address" size="30" maxlength="25">
+			</td>
+		</tr>
+		<tr>
+			<td>How did you find Bob's?</td>
+			<td>
+				<select name="find">
+					<option value = "a">I'm a regular customer</option>
+					<option value = "b">TV advertising</option>
+					<option value = "c">Phone directory</option>
+					<option value = "d">Word of mouth</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center">
+				<input type="submit" value="Sumbit Order">
+			</td>
+		</tr>
+		
 	</table>
 </form>
