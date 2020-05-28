@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>表单传值</title>
+</head>
+<body>
+	<form action="01form_post_php.php" method="post">
+		<input type="text" name="content">用户名字
+		<input type="checkbox" name="hobby[]" value="basketball">篮球
+		<input type="checkbox" name="hobby[]" value="football">足球
+		<input type="checkbox" name="hobby[]" value="bingpangqiu">乒乓球
+		<input type="radio" name="gender" value="1">男
+		<input type="radio" name="gender" value="2">女
+		<!-- 下面如果value有值就是用value，不然就是用name -->
+		<input type="submit" name="btn" value="上传文件">    
+	 </form> 
+</body>
+</html>

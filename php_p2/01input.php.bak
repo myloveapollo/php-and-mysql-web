@@ -1,0 +1,20 @@
+<?php
+	header("Content-Type:text/html;charset=UTF-8");
+	echo "<pre/>";
+	echo "我是的";
+
+	if(isset($_POST["checked"])){
+		echo "复选框值不为null";
+	}else{
+		echo "复选框没有选";
+	}
+	$hobby = $_POST["checked"];
+	
+	
+	//$hobby_string = implode($hobby,"|");
+
+//	var_dump(explode("|",$hobby_string));
+//	echo $hobby_string;
+//	print_r($hobby);
+//	var_dump($_POST);
+?>
