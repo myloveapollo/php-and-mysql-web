@@ -14,7 +14,6 @@
 
 	function upload_single($file, $allow_type, $path, &$error, $allow_format=array(), $max_size=2000000){
 		//判断文件是否有效
-		print_r($file);
 
 		if(!is_array($file) || !isset($file['error'])){
 			$error = '不是一个有效上传文件';
@@ -44,15 +43,17 @@
 				$error = '文件保存失败！';
 				return false;
 		}
+
 		//判断MIME类型
-		if(in_array($file['type'],$allow_type)){
+		if(!in_array($file['type'],$allow_type)){
 			//该文件类型不允许上传
 			$error = '当前文件类型不允许上传';
 			return false;
 		}
-		//判断后缀是否允许
+		//strrchr截取指定字符最后出现，直到字符该字符末尾。ltrim删除字符开头空白，或指定其他字符
 		$ext = ltrim(strrchr($file['name'],'.'),'.');
-		print_r($ext);
+		// $ext = strrchr($file['name'],'.');
+
 		if(!empty($allow_format) && !in_array($ext, $allow_format)){
 			//不允许上传
 			$error = '当前文件格式不允许上传';
@@ -66,7 +67,7 @@
 		}
 
 		//构造文件名字：类型_
-		$fullname = strstr($file['type'], '/',TRUE).date('YMD');
+		$fullname = strstr($file['name'], '.',TRUE).'_'.strstr($file['type'],'/',TRUE).'_'.date('Ymd');
 		//产生随机字符串
 		for($i = 0;$i < 4;$i++){
 			$fullname .= chr(mt_rand(65,90));
@@ -94,12 +95,18 @@
 	//提供数据
 	$file = $_FILES['image'];
 	$path = 'uploads';
-	$allow_type =  array('image/jpg','image/jpeg','image/gif','image/pjpeg','image/png');
-	$allow_format = array('jpg','gif','jpeg','png');
+	$allow_type =  array('image/jpg','image/jpeg','image/gif','image/pjpeg','image/png','application/octet-stream');
+	$allow_format = array('jpg','gif','jpeg','png','xlsx');
 	$max_size = 8000000;
 
 	if($filename = upload_single($file, $allow_type, $path, $error, $allow_format, $max_size)){
-		echo $filename;
+		echo "
+				<p1>{$file['name']}上传成功！<p1/><br/>
+				<form action='php_call_python.php'>
+					<input type='submit' name='btn' value='课表制作'/>
+  				</form>
+				
+			";
 	}else{
 		echo $error;
 	}

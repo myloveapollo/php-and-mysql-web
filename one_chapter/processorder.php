@@ -1,4 +1,5 @@
 <?php
+	require_once("file_exception.php");
 	//create short variable names;创建变量名称
 	$tireqty = $_POST['tireqty'];//获取name为tireqty的值，保存在变量里面
 	$oilqty = $_POST['oilqty'];
@@ -41,6 +42,10 @@
 		define('TIREPRICE', 100);//定义常量
 		define('OILPRICE',10);
 		define('SPARKQTY', 4);
+		$totalamount = $tireqty * TIREPRICE
+						+ $oilqty * OILPRICE
+						+$sparkqty * SPARKQTY;
+
 
 		$totalamount = number_format($totalamount, 2, '.', ' ');//数字格式，保留2位小数，小数点用点，千分位用空格
 		echo "<p>Total of order is $".$totalamount."</p>";
@@ -48,30 +53,61 @@
 
 
 		$outputstring = $date."\t".$tireqty." tires \t".$oilqty." oil\t".$sparkqty." spark plugs\t\$".$totalamount."\t".$address."\r\n";
-		echo $outputstring."<br/>";
+		// echo $outputstring."<br/>";
 		// echo "$DOCUMENT_ROOT";
 		// open file for appending
+		// if(file_exists($filename) == false){
+		// 	mkdir("$DOCUMENT_ROOT/php_exercise/one_chapter/orders");  //创建文件夹
+		// }
 
-		if(file_exists($filename) == false){
-			mkdir("$DOCUMENT_ROOT/php_exercise/one_chapter/orders");  //创建文件夹
+		try
+		{
+			if(!($fp = @fopen("$DOCUMENT_ROOT/php_exercise/one_chapter/orders/orders.txt", 'ab')))
+				throw new fileOpenException();
+
+			if(!flock($fp, LOCK_EX))
+				throw new fileLockException();
+			
+			if(!fwrite($fp, $outputstring, strlen($outputstring)))
+				throw new fileWriteException();
+
+			flock($fp,LOCK_UN);//LOCK_UN 释放锁定（无论共享或独占) 与上面的flock($fp,LOCK_EX)成对出现的
+			fclose($fp);
+			echo "<p>Order written</p>";			
+				
 		}
+		// catch(fileOpenException $foe)
+		// {	
+		// 	echo $foe;
+		// 	echo "<p><strong>Orders file could not be opened.
+		// 			please contact our webmaster for help.</strong></p>";
+		// }
+		catch(Exception $e)
+		{	
+			echo $e;
+			echo "<p><strong>Your order could not be processed at this time.
+					Please try again later.</strong></p>
+					";
+		}
+
+
 		
-		@$fp = fopen("$DOCUMENT_ROOT/php_exercise/one_chapter/orders/orders.txt", 'ab');//打开一个文件或者UPL，‘ab’a参数表示文件指针指向文件末尾，如果文件不存在尝试创建,但是文件夹一定要有的。b绝对是要的，为了移植考虑
+		// @$fp = fopen("$DOCUMENT_ROOT/php_exercise/one_chapter/orders/orders.txt", 'ab');//打开一个文件或者UPL，‘ab’a参数表示文件指针指向文件末尾，如果文件不存在尝试创建,但是文件夹一定要有的。b绝对是要的，为了移植考虑
 
-		flock($fp, LOCK_EX);  //LOCK_EX 取得独占锁定（写入的程序)。 防止其他客户同时写入
+		// flock($fp, LOCK_EX);  //LOCK_EX 取得独占锁定（写入的程序)。 防止其他客户同时写入
 
-		if(!$fp){
-			echo "<p><strong> Your order could not be processed at this time. Please try again later .</strong></p></body></html>"; 
-			exit;//这里结束了
-		}
+		// if(!$fp){
+		// 	echo "<p><strong> Your order could not be processed at this time. Please try again later .</strong></p></body></html>"; 
+		// 	exit;//这里结束了
+		// }
 
-		fwrite($fp, $outputstring, strlen($outputstring));//写入文件（可安全用于二进制文件
-		flock($fp,LOCK_UN);//LOCK_UN 释放锁定（无论共享或独占) 与上面的flock($fp,LOCK_EX)成对出现的
-		fclose($fp);//关闭文件
+		// fwrite($fp, $outputstring, strlen($outputstring));//写入文件（可安全用于二进制文件
+		// ;//关闭文件
 
-		echo "<p> Order written.</p>";
+		// echo "<p> Order written.</p>";
 		
 	?>
 
 </body>
+</html>
 <!-- </html> -->
