@@ -1,0 +1,46 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+	<link type="text/css" rel="stylesheet" href="css/in.css"/>
+	<title>Java Web</title>
+	<script language="javascript">
+function checkvalid2()
+{
+var strmg=login.uid.value;
+var pass=login.pwd.value;
+if(strmg=="" ||  pass=="")
+{
+alert("用户名或密码为空,请输入用户名和密码...");
+//login.pwd.value=" ";
+return false;
+}
+else
+return true;
+}
+</script>
+</head>
+
+<body>
+	<div class="one" >
+		
+		<form  name="login" action="login2.jsp" method="post" >
+
+			<div class="two" >
+				<div>
+					昵称：<input type="text"  name="uid"  id="input1"  placeholder="请输入昵称" autocomplete="off" 
+					  requird="required"/>
+				</div>
+
+				<div>
+					密码：<input type="password" name="pwd" id="input2"  maxlength=8  oncopy="return false"  oncut="return false" onpaste="return false"  autocomplete="off"  placeholder="请输入密码" style="font-family:Wingdings;width:150" />
+				</div>
+
+				<div class="three">
+					<input id="pic" type="submit" value="" onClick="return checkvalid2()"/>
+					<input id="pic2" type="submit" value="" onClick="return checkvalid2()"/>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
