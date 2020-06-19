@@ -16,6 +16,7 @@
 	}
 
 	if(!get_magic_quotes_gpc()){
+		echo "string";
 		$searchtype = addslashes($searchtype);
 		$searchterm = addslashes($searchterm);	
 	}
@@ -31,7 +32,7 @@
 	$query = "select * from books where ".$searchtype." like '%".$searchterm."%'";
 
 	$result = $db -> query($query);
-	var_dump($result);
+
 	echo "<br/>";
 
 	// var_dump($result->field_count());
@@ -42,9 +43,8 @@
 
 	for($i=0; $i<$num_result; $i++){
 		$row = $result-> fetch_assoc(); //从结果集中取一行作为关联数组
-		var_dump($row);
 		echo "<p><strong>".($i+1).". Title: ";
-		echo htmlspecialchars(stripslashes($row('title')));//htmlspecialchars(string)把预定义的<>转换成html实体
+		echo htmlspecialchars(stripslashes($row['title']));//htmlspecialchars(string)把预定义的<>转换成html实体
 		echo "</strong><br/>Author:";
 		echo stripcslashes($row['author']);
 		echo "<br />ISBN:";

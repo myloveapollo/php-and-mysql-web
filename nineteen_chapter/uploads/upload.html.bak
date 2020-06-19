@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>upload new file</title>
+ </head>
+ <body>
+	<h1>Upload new news</h1>
+	<form action="upload.php" method ="post" enctype="multipart/form-data">
+		<div>
+			<input type="hidden" name="MAX_FILES_SIZE" value="1000000"/>
+			<label for="userfile">上传文件:</label>
+			<input type="file" name="userfile" id="userfile"/>
+			<input type="submit" value="上传"/>
+		</div>
+	</form>
+ </body>
+</html>

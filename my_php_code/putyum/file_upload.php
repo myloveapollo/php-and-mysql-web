@@ -22,7 +22,7 @@
 
 		//判断文件存储路径是否有效
 		if(!is_dir($path)){
-			$error = '文件存储路径不存在';
+			$error = '文件存储路径不存在?';
 			return false;
 		}
 
@@ -97,6 +97,7 @@
 
 	//提供数据,允许图片和excel
 	$file = $_FILES['image'];
+	echo $file;
 	$path = 'uploads';
 	$allow_type =  array('image/jpg','image/jpeg','image/gif','image/pjpeg','image/png','application/octet-stream');
 	$allow_format = array('jpg','gif','jpeg','png','xlsx');

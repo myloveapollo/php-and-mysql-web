@@ -69,7 +69,7 @@
 		//构造文件名字：类型_
 		$file_name = iconv('utf-8', 'gb2312', $file['name']);
 		//strstr($file_name, '.',TRUE).'_'.
-		$fullname = date('Ymd');
+		$fullname = date('YmdHis');
 		//产生随机字符串
 		for($i = 0;$i < 4;$i++){
 			$fullname .= chr(mt_rand(65,90));
@@ -95,6 +95,8 @@
 
 	}
 
+
+
 	//提供数据,允许图片和excel
 	$file = $_FILES['image'];
 	$path = 'uploads';
@@ -103,18 +105,14 @@
 	$max_size = 80000000; //默人是2m upload_max_filesize
 
 	if($filename = upload_single($file, $allow_type, $path, $error, $allow_format, $max_size)){
-		
-		echo "	
-
-				<p1>{$file['name']}上传成功！<p1/><br/>
-				<br/>
-				<input type='button' onclick=\"window.location.href='php_call_python.php'\" value='前台课表制作'>
-				
-				
-			";
+		echo "<p1>{$file['name']}上传成功！<p1/><br/>";
+		sleep(3);
+		header("location:make_excel.html");
 	}else{
 		echo $error;
 	}
+//<input type='button' onclick=\"window.location.href='php_call_python.php'\" value='前台课表制作'>
+//<input type='button' onclick=\"window.location.href='php_call_python.php'\" value='教室课表制作'>
 ?>
 
 

@@ -1,8 +1,8 @@
 CREATE TABLE customers
 (customerid INT unsigned NOT NULL auto_increment PRIMARY key,
  name CHAR(50) NOT null,
- address CHAR(50) NOT null,
- city CHAR(50) NOT null
+ address CHAR(100) NOT null,
+ city CHAR(30) NOT null
 );
 
 CREATE TABLE orders
@@ -15,8 +15,8 @@ CREATE TABLE orders
 CREATE TABLE books
 (
 	isbn CHAR(13) NOT NULL PRIMARY key,
-	author CHAR(10),
-	title CHAR(10),
+	author CHAR(50),
+	title CHAR(100),
 	price FLOAT(4,2)
 
 );
