@@ -1,0 +1,63 @@
+/*CREATE DATABASE book_sc;*/
+/*USE book_sc;*/
+
+CREATE TABLE customers
+(
+	customerid INT unsigned NOT NULL auto_increment PRIMARY key,
+	name CHAR(60) NOT null,
+	address CHAR(80) NOT null,
+	city CHAR(30) NOT null,
+	state CHAR(10),
+	zip CHAR(10),
+	country CHAR(20) NOT null
+) engine=InnoDB;
+
+CREATE TABLE orders
+(
+	orderid INT unsigned NOT NULL auto_increment PRIMARY key,
+	customerid INT unsigned NOT NULL REFERENCES customers(customerid),
+	amount FLOAT(6,2),
+	DATE DATE NOT null,
+	order_status CHAR(10),
+	ship_name CHAR(60) NOT null,
+	ship_address CHAR(80) NOT null,
+	ship_city CHAR(30) NOT null,
+	ship_state CHAR(20),
+	ship_zip CHAR(10),
+	ship_country CHAR(20) NOT null
+) engine=InnoDB;
+
+CREATE TABLE books
+(
+	isbn CHAR(13) NOT NULL PRIMARY key,
+	author CHAR(100),
+	title CHAR(100),
+	catid INT unsigned,
+	price FLOAT(4, 2) NOT null,
+	description VARCHAR(255)
+) engine=InnoDB;
+
+CREATE TABLE categories
+(
+	catid INT unsigned NOT NULL auto_increment PRIMARY key,
+	catname CHAR(60) NOT NULL
+)engine = InnoDB;
+
+CREATE TABLE order_items
+(
+	orderid INT unsigned NOT NULL REFERENCES orders(orderid),
+	isbn CHAR(13) NOT NULL REFERENCES books(isbn),
+	item_price FLOAT(4,2) NOT null,
+	quantity TINYINT unsigned NOT null,
+	PRIMARY KEY (orderid, isbn)
+) engine = InnoDB;
+
+CREATE TABLE admin
+(
+	username CHAR(16) NOT NULL PRIMARY key,
+	password CHAR(40) NOT null
+);
+
+GRANT SELECT, insert, update, DELETE
+ON book_sc.*
+TO book_sc@localhost identified BY 'password';
