@@ -13,12 +13,12 @@
 	//start it now because it must go before headers
 	session_start();
 	try{
-		//check forms filled in
+		//check forms filled in 函数在data_valid_fns.php
 		if(!filled_out($_POST)){
 			throw new Exception("You have not filled the form out correctly - please go back and try again.");
 		}
 
-		//email address not valid
+		//email address not valid  验证邮箱是否有效，函数在data_valid_fns.php
 		if(!valid_email($email)){
 			throw new Exception("That is not a valid email address. please go back and try again.");
 		}
@@ -39,7 +39,21 @@
 		// this function can also throw an exception
 		register($username, $email, $passwd);
 		//register session variable
-		$_SESSION['']
-	}
+		$_SESSION['valid_user'] = $username;
 
+		//provide link to members page
+		do_html_header('Registration successful');
+		echo "Your registration was successful.Go to the members page to start
+				setting up your bookmarks!";
+		do_html_url('member.php','Go to members page');
+
+		// end page
+		do_html_footer();
+	}
+	catch (Exception $e){
+		do_html_header('Problem');
+		echo $e->getMessage();
+		do_html_footer();
+		exit;
+	}
 ?>
