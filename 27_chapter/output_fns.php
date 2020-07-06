@@ -23,7 +23,7 @@ function do_html_header($title){
 	}
 }
 
-function do_html_footer($title)
+function do_html_footer($title){
 //print an HTML footer
 ?>
 	</body>
@@ -107,7 +107,7 @@ function display_user_urls($url_array){
 	//display the table of URLS
 	//set global variable, so we can test later if this
 	// is on the page
-	global $bm_table
+	global $bm_table;
 	$bm_table = true;
 ?>
 	<br/>

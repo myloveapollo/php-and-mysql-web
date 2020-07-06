@@ -11,13 +11,13 @@ function register($username, $email, $password) {
 
   // check if username is unique
   $result = $conn->query("select * from user where username='".$username."'"); //Ê§°Üreturn false
-
+  
   if (!$result) {
     throw new Exception('Could not execute query');
   }
 
   if ($result->num_rows>0) {
-    throw new Exception("That username is taken'".$result."' - go back and choose another one.");
+    throw new Exception("That username is taken - go back and choose another one.");
   }
 
   // if ok, put in db

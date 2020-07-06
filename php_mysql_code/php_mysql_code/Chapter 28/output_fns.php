@@ -2,6 +2,8 @@
 
 function do_html_header($title) {
   // print an HTML header
+  header("Content-type:text/html; charset=GBK");
+ 
 ?>
   <html>
   <head>
@@ -65,7 +67,7 @@ function display_login_form() {
    <tr>
      <td colspan="2">Members log in here:</td>
    <tr>
-     <td>Username:</td>
+     <td>ÓÃ»§Ãû:</td>
      <td><input type="text" name="username"/></td></tr>
    <tr>
      <td>Password:</td>
