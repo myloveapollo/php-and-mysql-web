@@ -2,8 +2,6 @@
 
 function do_html_header($title) {
   // print an HTML header
-  header("Content-type:text/html; charset=GBK");
- 
 ?>
   <html>
   <head>
@@ -18,7 +16,7 @@ function do_html_header($title) {
   <body>
   <img src="bookmark.gif" alt="PHPbookmark logo" border="0"
        align="left" valign="bottom" height="55" width="57" />
-  <h1>PHPbookmark</h1>
+  <h1>php书签</h1>
   <hr />
 <?php
   if($title) {
@@ -52,31 +50,32 @@ function display_site_info() {
   // display some marketing info
 ?>
   <ul>
-  <li>Store your bookmarks online with us!</li>
-  <li>See what other users use!</li>
-  <li>Share your favorite links with others!</li>
+  <li>在线保存书签!</li>
+  <li>看其他用户保存的书签!</li>
+  <li>与其他用户分享!</li>
   </ul>
 <?php
 }
 
 function display_login_form() {
 ?>
-  <p><a href="register_form.php">Not a member?</a></p>
-  <form method="post" action="member.php">
+
+  <p><a href="Chapter_28/register_form.php">没有注册?</a></p>
+  <form method="post" action="Chapter_28/member.php">
   <table bgcolor="#cccccc">
    <tr>
-     <td colspan="2">Members log in here:</td>
+     <td colspan="2">在此登录:</td>
    <tr>
-     <td>username:</td>
+     <td>用户名:</td>
      <td><input type="text" name="username"/></td></tr>
    <tr>
-     <td>Password:</td>
+     <td>密码:</td>
      <td><input type="password" name="passwd"/></td></tr>
    <tr>
      <td colspan="2" align="center">
      <input type="submit" value="Log in"/></td></tr>
    <tr>
-     <td colspan="2"><a href="forgot_form.php">Forgot your password?</a></td>
+     <td colspan="2"><a href="Chapter_28/forgot_form.php">忘记密码?</a></td>
    </tr>
  </table></form>
 <?php
@@ -87,18 +86,18 @@ function display_registration_form() {
  <form method="post" action="register_new.php">
  <table bgcolor="#cccccc">
    <tr>
-     <td>Email address:</td>
+     <td>邮箱地址:</td>
      <td><input type="text" name="email" size="30" maxlength="100"/></td></tr>
    <tr>
-     <td>Preferred username <br />(max 16 chars):</td>
+     <td>用户名：<br />(max 16 chars):</td>
      <td valign="top"><input type="text" name="username"
          size="16" maxlength="16"/></td></tr>
    <tr>
-     <td>Password <br />(between 6 and 16 chars):</td>
+     <td>密码：<br />(between 6 and 16 chars):</td>
      <td valign="top"><input type="password" name="passwd"
          size="16" maxlength="16"/></td></tr>
    <tr>
-     <td>Confirm password:</td>
+     <td>确认密码：</td>
      <td><input type="password" name="passwd2" size="16" maxlength="16"/></td></tr>
    <tr>
      <td colspan=2 align="center">
@@ -120,8 +119,8 @@ function display_user_urls($url_array) {
   <table width="300" cellpadding="2" cellspacing="0">
   <?php
   $color = "#cccccc";
-  echo "<tr bgcolor=\"".$color."\"><td><strong>Bookmark</strong></td>";
-  echo "<td><strong>Delete?</strong></td></tr>";
+  echo "<tr bgcolor=\"".$color."\"><td><strong>书签</strong></td>";
+  echo "<td><strong>删除?</strong></td></tr>";
   if ((is_array($url_array)) && (count($url_array) > 0)) {
     foreach ($url_array as $url)  {
       if ($color == "#cccccc") {
@@ -148,21 +147,21 @@ function display_user_menu() {
   // display the menu options on this page
 ?>
 <hr />
-<a href="member.php">Home</a> &nbsp;|&nbsp;
-<a href="add_bm_form.php">Add BM</a> &nbsp;|&nbsp;
+<a href="member.php">主页</a> &nbsp;|&nbsp;
+<a href="add_bm_form.php">添加书签</a> &nbsp;|&nbsp;
 <?php
   // only offer the delete option if bookmark table is on this page
   global $bm_table;
   if ($bm_table == true) {
-    echo "<a href=\"#\" onClick=\"bm_table.submit();\">Delete BM</a> &nbsp;|&nbsp;";
+    echo "<a href=\"#\" onClick=\"bm_table.submit();\">删除 BM</a> &nbsp;|&nbsp;";
   } else {
     echo "<span style=\"color: #cccccc\">Delete BM</span> &nbsp;|&nbsp;";
   }
 ?>
-<a href="change_passwd_form.php">Change password</a>
+<a href="change_passwd_form.php">修改密码</a>
 <br />
-<a href="recommend.php">Recommend URLs to me</a> &nbsp;|&nbsp;
-<a href="logout.php">Logout</a>
+<a href="recommend.php">推荐URL</a> &nbsp;|&nbsp;
+<a href="logout.php">退出</a>
 <hr />
 
 <?php
@@ -173,11 +172,11 @@ function display_add_bm_form() {
 ?>
 <form name="bm_table" action="add_bms.php" method="post">
 <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
-<tr><td>New BM:</td>
+<tr><td>新BM:</td>
 <td><input type="text" name="new_url" value="http://"
      size="30" maxlength="255"/></td></tr>
 <tr><td colspan="2" align="center">
-    <input type="submit" value="Add bookmark"/></td></tr>
+    <input type="submit" value="添加书签"/></td></tr>
 </table>
 </form>
 <?php
@@ -189,20 +188,20 @@ function display_password_form() {
    <br />
    <form action="change_passwd.php" method="post">
    <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
-   <tr><td>Old password:</td>
+   <tr><td>旧密码:</td>
        <td><input type="password" name="old_passwd"
             size="16" maxlength="16"/></td>
    </tr>
-   <tr><td>New password:</td>
+   <tr><td>新密码:</td>
        <td><input type="password" name="new_passwd"
             size="16" maxlength="16"/></td>
    </tr>
-   <tr><td>Repeat new password:</td>
+   <tr><td>重复新密码:</td>
        <td><input type="password" name="new_passwd2"
             size="16" maxlength="16"/></td>
    </tr>
    <tr><td colspan="2" align="center">
-       <input type="submit" value="Change password"/>
+       <input type="submit" value="修改密码"/>
    </td></tr>
    </table>
    <br />
@@ -215,7 +214,7 @@ function display_forgot_form() {
    <br />
    <form action="forgot_passwd.php" method="post">
    <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
-   <tr><td>Enter your username</td>
+   <tr><td>输入用户名</td>
        <td><input type="text" name="username" size="16" maxlength="16"/></td>
    </tr>
    <tr><td colspan=2 align="center">

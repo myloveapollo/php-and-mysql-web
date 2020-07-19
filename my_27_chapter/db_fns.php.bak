@@ -1,7 +1,6 @@
 <?php
 	function db_connect(){
-		$result = new mysqli("localhost", "bm_user", "password", "bookmarks");
-
+		$result = new mysqli('localhost', 'bookuser', 'password', 'bookmarks');
 		if(!$result){
 			throw new Exception("Could not connect database server");
 		}else{

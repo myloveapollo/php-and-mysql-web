@@ -1,6 +1,7 @@
 <?php
-	require_once('bookmark_fns.php');
-	session_start();
+	//底部Add BM功能
+	require_once('bookmark_fns.php'); //加载函数
+	session_start();//创建一个会话
 
 	//create short variable name
 	$new_url = $_POST['new_url'];

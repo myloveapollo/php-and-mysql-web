@@ -1,5 +1,6 @@
 <?php
 //load database function
+
 require_once('db_fns.php');
 
 function register($username, $email, $password) {
@@ -10,21 +11,21 @@ function register($username, $email, $password) {
   $conn = db_connect();
 
   // check if username is unique
-  $result = $conn->query("select * from user where username='".$username."'"); //ʧ��return false
+  $result = $conn->query("select * from user where username='".$username."'"); //失败return false
   
   if (!$result) {
     throw new Exception('Could not execute query');
   }
 
   if ($result->num_rows>0) {
-    throw new Exception("That username is taken - go back and choose another one.");
+    throw new Exception("你的用户名已经被占用，请返回再重试！");
   }
 
   // if ok, put in db
   $result = $conn->query("insert into user values
                          ('".$username."', sha1('".$password."'), '".$email."')");
   if (!$result) {
-    throw new Exception('Could not register you in database - please try again later.');
+    throw new Exception('不能注册到数据库！ - 请重试!');
   }
 
   return true;
@@ -43,25 +44,25 @@ function login($username, $password) {
                          where username='".$username."'
                          and passwd = sha1('".$password."')");
   if (!$result) {
-     throw new Exception('Could not log you in.');
+     throw new Exception('无法登录');
   }
 
   if ($result->num_rows>0) {
      return true;
   } else {
-     throw new Exception('Could not log you in.');
+     throw new Exception('无法登录.');
   }
 }
 
 function check_valid_user() {
 // see if somebody is logged in and notify them if not
   if (isset($_SESSION['valid_user']))  {
-      echo "Logged in as ".$_SESSION['valid_user'].".<br />";
+      echo "登录名： ".$_SESSION['valid_user'].".<br />";
   } else {
      // they are not logged in
-     do_html_heading('Problem:');
-     echo 'You are not logged in.<br />';
-     do_html_url('login.php', 'Login');
+     do_html_heading('出错:');
+     echo '没有成功登录.<br />';
+     do_html_url('login.php', '登录');
      do_html_footer();
      exit;
   }
@@ -80,7 +81,7 @@ function change_password($username, $old_password, $new_password) {
                           set passwd = sha1('".$new_password."')
                           where username = '".$username."'");
   if (!$result) {
-    throw new Exception('Password could not be changed.');
+    throw new Exception('密码已经修改.');
   } else {
     return true;  // changed successfully
   }
@@ -117,10 +118,7 @@ function get_random_word($min_length, $max_length) {
 }
 
 function reset_password($username) {
-// set password for username to a random value
-// return the new password or false on failure
-  // get a random dictionary word b/w 6 and 13 chars in length
-  // $new_password = get_random_word(6, 13);
+
   $new_password = 'chongzhimima';
 
   if($new_password == false) {
@@ -158,11 +156,11 @@ function notify_password($username, $password) {
     } else {
       $row = $result->fetch_object();
       $email = $row->email;
-      $from = "From: support@phpbookmark \r\n";
+      // $from = "From: support@phpbookmark \r\n";
       $mesg = "Your PHPBookmark password has been changed to ".$password."\r\n"
               ."Please change it next time you log in.\r\n";
 
-      if (mail($email, 'PHPBookmark login information', $mesg, $from)) {
+      if (mail($email, 'PHPBookmark login information', $mesg)) {
         return true;
       } else {
         throw new Exception('Could not send email.');

@@ -1,0 +1,14 @@
+<?php
+
+$dict_path = 'C:\Users\Administrator\Desktop\words.txt';
+$fp = @fopen($dict_path, 'r');
+$size = filesize($dict_path);
+
+$rand_location = rand(0,$size);
+fseek($fp, $rand_location);
+
+$word = fgets($fp, 80);
+echo $word;
+$word = fgets($fp, 80);
+echo $word;
+echo $size;

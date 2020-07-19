@@ -1,8 +1,8 @@
 <?php
 	function db_connect(){
-		$result = new mysqli('localhost', 'bm_user', 'password', 'bookmarks');
+		$result = new mysqli("localhost", "bm_user", "password", "bookmarks");
 		if(!$result){
-			throw new Exception('Cloud not connect to database server');
+			throw new Exception("Could not connect database server");
 		}else{
 			return $result;
 		}
