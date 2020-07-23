@@ -6,9 +6,6 @@
   $new_url = $_POST['new_url'];
 
   do_html_header('Adding bookmarks');
-  $test = "wos zhong";
-  $d =strstr($test, 'z');
-  var_dump($d);
 
   try {
     check_valid_user();
